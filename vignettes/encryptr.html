@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Rich FitzJohn" />
+
+<meta name="date" content="2016-03-10" />
+
+<title>Introduction</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0A%7D%0Apre%20%7B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div id="header">
+<h1 class="title">Introduction</h1>
+<h4 class="author"><em>Rich FitzJohn</em></h4>
+<h4 class="date"><em>2016-03-10</em></h4>
+</div>
+
+
+<p>This package tries to smooth over some of the differences in encryption approaches (symmetric vs asymmetric, sodium vs openssl) to provide a simple interface for users who just want to encrypt or decrypt things. My main motivation for writing this package is described in the <a href="data.html">data workflow</a> vignette but implementing that requires a few features that might be generally useful.</p>
+<p>This vignette works through the basic functionality of the package. It does not offer much in the way of an introduction to encryption itself; for that see the excellent vignettes in the <code>openssl</code> and <code>sodium</code> packages. This package is a thin wrapper for those packages.</p>
+<div id="keys-and-the-like" class="section level1">
+<h1>Keys and the like</h1>
+<p>To encrypt anything we need a key. There are two sorts of key “types” we will concern ourselves with here “symmetric” and “asymmetric”.</p>
+<ul>
+<li><p>“symmetric” keys are used for storing secrets that multiple people need to access. Everyone has the same key (which is just a bunch of bytes) and with that we can either encrypt data or decrypt it.</p></li>
+<li><p>a “key pair” is a public and a private key; this is used in communication. You hold a private key that nobody else ever sees and a public key that you can copy around all over the show. These can be used for a couple of different patterns of communication (see below).</p></li>
+</ul>
+<p>We support key pairs from <code>openssl</code> and from <code>sodium</code> and symmetric keys from <code>sodium</code>. In the rest of the package I use key pair from <code>openssl</code> to encrypt a <code>sodium</code> symmetric key. The reason for this is that openssl keys have a common file format and many people have one already (whereas I do not see that <code>sodium</code> has anything like this). On the other hand, <code>sodium</code> is really fast modern so it’s nice to use that for dealing with potentially large amounts of data.</p>
+<div id="symmetric-keys-sodium" class="section level2">
+<h2>Symmetric keys (<code>sodium</code>)</h2>
+<p>A <code>sodium</code> key is literally just 32 bytes of random data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">key &lt;-<span class="st"> </span>sodium::<span class="kw">keygen</span>()
+key</code></pre></div>
+<pre><code>##  [1] 57 99 30 77 33 95 e5 89 71 36 80 35 4e e1 4f d4 45 4c 25 a0 f6 2f 02
+## [24] 04 bd 0d cd a8 83 1d 57 b4</code></pre>
+<p>Because the key is not readily idenfiable as a key we wrap it up with  (all of the approaches will work this way).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cfg &lt;-<span class="st"> </span>encryptr::<span class="kw">config_sodium_symmetric</span>(key)</code></pre></div>
+<p>With this we can use the encryption functions in the package (see below)</p>
+</div>
+<div id="asymmetric-keys-openssl" class="section level2">
+<h2>Asymmetric keys (<code>openssl</code>)</h2>
+<p>With <code>openssl</code> you have a key pair and can do “public key encryption”. With that, anyone with a copy of your public key can send you a message that only you, with your private key, can decrypt.</p>
+<p>To load your key pair, including your private key, you could run:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pair &lt;-<span class="st"> </span>encryptr::<span class="kw">config_openssl</span>()</code></pre></div>
+<p>which will look, in turn, at:</p>
+<ul>
+<li>the argument <code>path</code> (<code>NULL</code> by default) to <code>config_openssl</code></li>
+<li>the environment variable (<code>USER_KEY</code> or <code>USER_PUBKEY</code>)</li>
+<li>the path <code>~/.ssh/id_rsa.pub</code></li>
+</ul>
+<p>The path provided can be the directory containing <code>id_rsa.pub</code> and <code>id_rsa</code> or a path to either and hopefully the right thing will happen. If your private key is password-protected (a <em>very</em> good idea) you will be prompted for your password.</p>
+<p>Someone wanting to send you a message would load your public key with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pair &lt;-<span class="st"> </span>encryptr::<span class="kw">config_openssl</span>(path, <span class="dt">private=</span><span class="ot">FALSE</span>)</code></pre></div>
+<p>which would load your public key from <code>path</code> and <em>not</em> try to load a private key.</p>
+</div>
+<div id="asymmetric-keys-sodium" class="section level2">
+<h2>Asymmetric keys (<code>sodium</code>)</h2>
+<p>This is currently less useful practically because there is no standard format for storing the keys. However, you can save them to a file with <code>writeBin</code> and <code>encryptr</code> will read them from there. Alternatively if you have the raw bytes of the keys (which is what <code>sodium</code> returns) pass those in.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">key &lt;-<span class="st"> </span>sodium::<span class="kw">keygen</span>()
+pub &lt;-<span class="st"> </span>sodium::<span class="kw">pubkey</span>(key)
+key</code></pre></div>
+<pre><code>##  [1] c6 95 63 83 53 f4 53 92 19 05 4c 4d eb 0d c1 04 a7 2a 06 80 81 72 27
+## [24] 5d 2b 03 a5 ba c8 b2 2e 61</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pub</code></pre></div>
+<pre><code>##  [1] 98 b8 79 f0 7c a5 8a cd 38 75 2b cf d3 f1 42 7a 7f a3 b9 fc 59 d8 8c
+## [24] b9 a0 5f 97 a5 b1 4e bc 36</code></pre>
+<p>With sodium key pairs there are two sorts of encryption one can do (see the sodium vignette for more details here). First, and most similarly to the <code>openss</code> method, we can do public key encryption by using <code>encryptr::config_sodium_public</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pair &lt;-<span class="st"> </span>encryptr::<span class="kw">config_sodium_public</span>(pub, key)</code></pre></div>
+<p>Note that ordinarily you would use someone elses public key here!</p>
+<p>Second, you could do <em>authenticated</em> public key encryption with</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pair &lt;-<span class="st"> </span>encryptr::<span class="kw">config_sodium_authenticated</span>(pub, key)</code></pre></div>
+<p>With this approach both the sender and recipient need the to know each others public keys. With public key encryption <em>anyone</em> can send a message to a recipient but with this approach only this pair of people can communicate. See <code>?sodium::auth_encrypt</code> for more details.</p>
+</div>
+</div>
+<div id="encrypting-things" class="section level1">
+<h1>Encrypting things</h1>
+<div id="files-via-the-high-level-interface" class="section level2">
+<h2>Files, via the high level interface</h2>
+<p>This is the most user-friendly way of using the package. The package provides a pair of functions <code>encrypt</code> and <code>decrypt</code> that wrap file writing and file reading functions. In general you would use <code>encrypt</code> when writing a file and <code>decrypt</code> when reading one. They’re designed to be used like so:</p>
+<p>Suppose you have a super-secret object that you want to share privately</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cfg &lt;-<span class="st"> </span>encryptr::<span class="kw">config_sodium_symmetric</span>(sodium::<span class="kw">keygen</span>())
+x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="dv">1</span>:<span class="dv">10</span>, <span class="dt">b =</span> <span class="st">&quot;don't tell anyone else&quot;</span>)</code></pre></div>
+<p>If you save this to disk with <code>saveRDS</code> it will be readable by everyone. But if you encrypted the file that <code>saveRDS</code> produced it would be protected:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">encryptr::<span class="kw">encrypt</span>(<span class="kw">saveRDS</span>(x, <span class="st">&quot;secret.rds&quot;</span>), cfg)</code></pre></div>
+<p>(see below for some more details on how this works).</p>
+<p>This file cannot be read with <code>readRDS</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">readRDS</span>(<span class="st">&quot;secret.rds&quot;</span>)</code></pre></div>
+<pre><code>## Error in readRDS(&quot;secret.rds&quot;): unknown input format</code></pre>
+<p>but if we wrap the call with <code>decrypt</code> and pass in the config object it can be decrypted and read:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">encryptr::<span class="kw">decrypt</span>(<span class="kw">readRDS</span>(<span class="st">&quot;secret.rds&quot;</span>), cfg)</code></pre></div>
+<pre><code>## $a
+##  [1]  1  2  3  4  5  6  7  8  9 10
+## 
+## $b
+## [1] &quot;don't tell anyone else&quot;</code></pre>
+<p>What happens in the call above is some moderately nasty call rewriting. If this bothers you, you should just use <code>encrypt_file</code> / <code>decrypt_file</code> and make sure to clean up after yourself.</p>
+<p>The <code>encrypt</code> function inspects the call in the first argument passed to it and works out for the function provided (<code>saveRDS</code>) which argument corresponds to the filename (here <code>&quot;secret.rds&quot;</code>). It then rewrites the call to write out to a temporary file (using <code>tempfile()</code>). Then it calls <code>encrypt_file</code> (see below) on this temporary file to create the file asked for (<code>&quot;secret.rds&quot;</code>). Then it deletes the temporary file, though this will also happen in case of an error in any of the above.</p>
+<p>The <code>decrypt</code> function works similarly. It insepects the call and detects that the first argument represents the filename. It decrypts that file to create a temporary file, and then runs <code>readRDS</code> on that file. Again it will delete the temporary file on exit.</p>
+<p>The functions supported via this interface are:</p>
+<ul>
+<li><code>readLines</code> / <code>writeLines</code></li>
+<li><code>readRDS</code> / <code>writeRDS</code></li>
+<li><code>read</code> / <code>save</code></li>
+<li><code>read.table</code> / <code>write.table</code></li>
+<li><code>read.csv</code> / <code>read.csv2</code> / <code>write.csv</code></li>
+<li><code>read.delim</code> / <code>read.delim2</code></li>
+</ul>
+<p>But new functions can be added with the <code>rewrite_register</code> function. For example, to support the excellent <a href="https://cran.r-project.org/web/packages/rio">rio</a> package, whose <code>import</code> and <code>export</code> functions take the filename <code>file</code> you could use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">encryptr::<span class="kw">rewrite_register</span>(<span class="st">&quot;rio&quot;</span>, <span class="st">&quot;import&quot;</span>, <span class="st">&quot;file&quot;</span>)
+encryptr::<span class="kw">rewrite_register</span>(<span class="st">&quot;rio&quot;</span>, <span class="st">&quot;export&quot;</span>, <span class="st">&quot;file&quot;</span>)</code></pre></div>
+<p>now you can read and write tabular data into and out of a great many different file formats with encryption with calls like</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">encryptr::<span class="kw">encrypt</span>(rio::<span class="kw">export</span>(mtcars, <span class="st">&quot;file.json&quot;</span>), cfg)
+encryptr::<span class="kw">decrypt</span>(rio::<span class="kw">import</span>(<span class="st">&quot;file.json&quot;</span>), cfg)</code></pre></div>
+<p>The functions above use <a href="http://adv-r...">non standard evaluation</a> and so may not be suitable for programming or use in packages. An “escape hatch” is provided via <code>encrypt_</code> and <code>decrypt_</code> where the first argument is a quoted expression.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">encryptr::<span class="kw">encrypt_</span>(<span class="kw">quote</span>(<span class="kw">saveRDS</span>(x, <span class="st">&quot;secret.rds&quot;</span>)), cfg)
+encryptr::<span class="kw">decrypt_</span>(<span class="kw">quote</span>(<span class="kw">readRDS</span>(<span class="st">&quot;secret.rds&quot;</span>)), cfg)</code></pre></div>
+<pre><code>## $a
+##  [1]  1  2  3  4  5  6  7  8  9 10
+## 
+## $b
+## [1] &quot;don't tell anyone else&quot;</code></pre>
+</div>
+<div id="objects" class="section level2">
+<h2>Objects</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cfg &lt;-<span class="st"> </span>encryptr::<span class="kw">config_sodium_symmetric</span>(sodium::<span class="kw">keygen</span>())</code></pre></div>
+<p>Here’s an object to encrypt:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">x=</span><span class="dv">1</span>:<span class="dv">10</span>, <span class="dt">y=</span><span class="st">&quot;secret&quot;</span>)</code></pre></div>
+<p>This creates a bunch of raw bytes corresponding to the data (it’s not really possible to print this as anything nicer than bytes).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">secret &lt;-<span class="st"> </span>encryptr::<span class="kw">encrypt_object</span>(obj, <span class="ot">NULL</span>, cfg)
+secret</code></pre></div>
+<pre><code>##   [1] 00 18 cb fe a4 df df bf 6d 49 9c 84 2f a5 dd 33 a0 c3 93 d1 34 2e b5
+##  [24] 73 48 fc 88 7a a0 40 bf 24 e2 8d 09 9b 26 5c 71 3a c2 69 78 76 e5 fe
+##  [47] e4 2f 44 ae b4 81 1f 1f fd c2 1a f7 bc c9 e0 0d ef 8e e9 7f 9b 11 a6
+##  [70] a0 65 41 0b 4e e4 1e 1e 22 44 5e 9f 66 03 d4 cd d2 5e c0 6e 41 9f 59
+##  [93] ff dd f3 b6 14 ad 49 4e 47 67 db e3 1c 1c 93 47 b8 5e b7 1b 67 d5 ab
+## [116] 93 17 e6 e0 35 ec 8e 61 92 03 6f c8 24 f1 be 2e 28 d3 f1 ea 88 d3 4d
+## [139] 1d 88 d7 1a 28 7f 40 4a fd ac 3d 75 d9 62 36 88 6d 98 05 1e 54 23 92
+## [162] a8 1c fa 77 ce df 83 94 ab 90 fc fa d9 3f c3 56 33 78 81 79 28 03 26
+## [185] c9</code></pre>
+<p>(the <code>NULL</code> second argument to the <code>encrypt_object</code> call indicates we don’t want to write to file but instead want to return the data itself, like R’s <code>serialize</code> function).</p>
+<p>The data can be decrypted with the <code>decrypt_object</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">encryptr::<span class="kw">decrypt_object</span>(secret, cfg)</code></pre></div>
+<pre><code>## $x
+##  [1]  1  2  3  4  5  6  7  8  9 10
+## 
+## $y
+## [1] &quot;secret&quot;</code></pre>
+</div>
+<div id="strings" class="section level2">
+<h2>Strings</h2>
+<p>For the case of strings we can do this in a slightly more lightweight way (the above function routes through <code>serialize</code> / <code>deserialize</code> which can be slow and will create larger objects than using <code>charToRaw</code> / <code>rawToChar</code>)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">secret &lt;-<span class="st"> </span>encryptr::<span class="kw">encrypt_string</span>(<span class="st">&quot;secret&quot;</span>, <span class="ot">NULL</span>, cfg)
+secret</code></pre></div>
+<pre><code>##  [1] 00 18 40 07 e8 f0 68 bd 11 aa db b7 76 13 d8 ef d0 fe df 01 9e ed 2a
+## [24] 4d 56 73 4c 9c 8d e9 c1 59 5d 3b c6 70 5b fe 05 26 5e ab e5 3e 46 43
+## [47] aa c4</code></pre>
+<p>and decrypt:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">encryptr::<span class="kw">decrypt_string</span>(secret, cfg)</code></pre></div>
+<pre><code>## [1] &quot;secret&quot;</code></pre>
+</div>
+<div id="plain-raw-data" class="section level2">
+<h2>Plain raw data</h2>
+<p>If these are not enough for you, you can work directly with raw objects (bunches of bytes) by using <code>encrypt_data</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span>sodium::<span class="kw">random</span>(<span class="dv">100</span>)
+dat <span class="co"># some random bytes</span></code></pre></div>
+<pre><code>##   [1] 1d f8 47 d4 a8 3f 63 1b 17 2c 4d 41 46 5d 8f af 3f d7 8d 74 f2 51 44
+##  [24] 07 99 08 33 33 b1 7a 06 38 63 b1 84 1d f9 6d 6b f9 60 38 c6 57 26 79
+##  [47] c2 c5 21 f4 f9 f4 d5 fb 0a e5 cb cf 80 fc e6 57 54 12 32 83 4d d8 48
+##  [70] 70 dc 0d 2c 6f fd 16 d1 c5 5c 60 a2 57 21 b9 89 2a b2 5f 5e 14 8c bc
+##  [93] a9 d5 57 80 4d 79 33 13</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">secret &lt;-<span class="st"> </span>encryptr::<span class="kw">encrypt_data</span>(dat, <span class="ot">NULL</span>, cfg)
+secret</code></pre></div>
+<pre><code>##   [1] 00 18 ba 1a f0 3b e3 ef 8d 69 cc 39 a4 5c 70 51 e9 d5 36 45 c1 c1 d2
+##  [24] 6f 19 5c 2e bc f2 5f 2d 41 87 ab 89 4e db 77 59 c7 1c 40 40 5b 82 6e
+##  [47] 53 43 f2 4e 2f c3 18 f4 f0 ed db ea 3d ab 46 de 87 13 4d 55 0e a4 d9
+##  [70] 08 af 79 60 f3 de 11 77 66 9c 65 a8 7c 34 d6 3a 2e 23 d1 df bc 6c c0
+##  [93] e3 50 90 2d 00 7f 2a dc 97 94 19 b8 f4 61 1f f0 8e 9f 08 a8 40 cf ae
+## [116] 6f 51 18 77 50 69 e5 e1 50 f9 0d ac d8 39 6a c4 84 9b 29 c4 cc 3d 2b
+## [139] d1 37 cb c7</code></pre>
+<p>Decrypted data is the same as a the original data</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">identical</span>(encryptr::<span class="kw">decrypt_data</span>(secret, <span class="ot">NULL</span>, cfg), dat)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+<div id="files" class="section level2">
+<h2>Files</h2>
+</div>
+<div id="send-a-secret-message-to-someone" class="section level2">
+<h2>Send a secret message to someone</h2>
+<p>Because it’s not totally obvious, here is how two users can use openssl rsa keypairs to share a secret key. This is the idea underlying the <a href="data.html">workflow discussed elsewhere</a>.</p>
+<p>First, generate a keypair.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">path_pair &lt;-<span class="st"> </span>encryptr::<span class="kw">ssh_keygen</span>(<span class="kw">tempfile</span>(), <span class="ot">FALSE</span>)
+pair &lt;-<span class="st"> </span>encryptr::<span class="kw">config_openssl</span>(path_pair)</code></pre></div>
+<p>Next we can load the <em>public key</em> from the pair above. Assume that the public key has been swapped around by the users by this point, and that the code here is being run on a different users’s machine.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pub &lt;-<span class="st"> </span>encryptr::<span class="kw">config_openssl</span>(path_pair, <span class="dt">private=</span><span class="ot">FALSE</span>)</code></pre></div>
+<p>Then we’ll generate a sodium symmetric key to share. Alternatively, this could be any data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span>sodium::<span class="kw">keygen</span>()</code></pre></div>
+<p>Then we can use the public key of user2 to encrypt a message that only they can read:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">secret &lt;-<span class="st"> </span>encryptr::<span class="kw">encrypt_data</span>(data, <span class="ot">NULL</span>, pub)</code></pre></div>
+<p>The user can then decrypt the data this way:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">encryptr::<span class="kw">decrypt_data</span>(secret, <span class="ot">NULL</span>, pair)</code></pre></div>
+<pre><code>##  [1] 24 94 0d d2 c6 71 ca be 91 bf 0f b7 10 53 93 f5 65 70 a7 f9 e7 bf 76
+## [24] e8 cc 8a 13 23 0d c8 a9 6e</code></pre>
+<p>Nobody else but that user can decrypt the data.</p>
+</div>
+<div id="secure-message-exchange" class="section level2">
+<h2>Secure message exchange</h2>
+<p>If two users both know each others public keys (and their own private keys) they can securely message each other. This means that the first user will encrypt a message with their private key and the other users’ public key and only the other user can decrypt the message <em>and</em> they know it has come from the first user. This is not currently supported but will be available by passing the public and private keys explicitly to <code>config_openssl</code> in a future version.</p>
+<p>First generate two sets of keys:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">key1 &lt;-<span class="st"> </span>sodium::<span class="kw">keygen</span>()
+pub1 &lt;-<span class="st"> </span>sodium::<span class="kw">pubkey</span>(key1)
+
+key2 &lt;-<span class="st"> </span>sodium::<span class="kw">keygen</span>()
+pub2 &lt;-<span class="st"> </span>sodium::<span class="kw">pubkey</span>(key2)</code></pre></div>
+<p>The first user will create an authenticated config object using <em>their</em> private key and the <em>other users</em> public key (and the second user will do the opposite).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cfg1 &lt;-<span class="st"> </span>encryptr::<span class="kw">config_sodium_authenticated</span>(pub2, key1)
+cfg2 &lt;-<span class="st"> </span>encryptr::<span class="kw">config_sodium_authenticated</span>(pub1, key2)</code></pre></div>
+<p>The first user can now encrypt a message:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">10</span>)
+secret &lt;-<span class="st"> </span>encryptr::<span class="kw">encrypt_object</span>(x, <span class="ot">NULL</span>, cfg1)</code></pre></div>
+<p>and the second user can decrypt it:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">identical</span>(encryptr::<span class="kw">decrypt_object</span>(secret, cfg2), x)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Now, suppose there is a third, malicious, user:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">key3 &lt;-<span class="st"> </span>sodium::<span class="kw">keygen</span>()
+pub3 &lt;-<span class="st"> </span>sodium::<span class="kw">pubkey</span>(key3)</code></pre></div>
+<p>as with public key encryption, they cannot decrypt the message because it was not encrypted with their public key:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">encryptr::<span class="kw">decrypt_object</span>(secret,
+                         encryptr::<span class="kw">config_sodium_authenticated</span>(pub1, key3))</code></pre></div>
+<pre><code>## Error in sodium::auth_decrypt(msg, key, pub, ...): Authenticated decryption failed</code></pre>
+<p>But unlike public key encryption they cannot send a fake message to the second user. Because the second user is using the first user’s public key, they expect a message <em>only</em> from the first user:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cfg3 &lt;-<span class="st"> </span>encryptr::<span class="kw">config_sodium_authenticated</span>(pub3, key1)
+x3 &lt;-<span class="st"> </span>x +<span class="st"> </span><span class="dv">1</span> <span class="co"># malicious message</span>
+secret3 &lt;-<span class="st"> </span>encryptr::<span class="kw">encrypt_object</span>(x3, <span class="ot">NULL</span>, cfg3)</code></pre></div>
+<p>When the second user tries to decrypt the message they get an error</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">encryptr::<span class="kw">decrypt_object</span>(secret3, cfg2)</code></pre></div>
+<pre><code>## Error in sodium::auth_decrypt(msg, key, pub, ...): Authenticated decryption failed</code></pre>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

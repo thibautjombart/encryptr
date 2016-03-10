@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>encrypt_data. encryptr 0.0.3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">encryptr 0.0.3</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Encrypt and decrypt data and other things</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>encrypt_data(data, dest, config)</div>
+<div>encrypt_object(object, dest, config)</div>
+<div>encrypt_string(string, dest, config)</div>
+<div>encrypt_file(path, dest, config)</div>
+<div>decrypt_data(data, dest, config)</div>
+<div>decrypt_object(data, config)</div>
+<div>decrypt_string(data, config)</div>
+<div>decrypt_file(path, dest, config)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>data</dt>
+      <dd>(for <code>encrypt_data</code>, <code>decrypt_data</code>,
+<code>decrypt_object</code>, <code>decrypt_string</code>) a raw vector with
+the data to be encrypted or decrypted.  For the decryption
+functions this must be data derived by encrypting something or
+you will get an error.</dd>
+      <dt>dest</dt>
+      <dd>The destination filename for the encrypted or
+decrypted data, or <code>NULL</code> to return a raw vector.  This is
+not used by <code>decrypt_object</code> or <code>decrypt_string</code> which
+always return an object or string.</dd>
+      <dt>config</dt>
+      <dd>A <code>encryptr_config</code> object describing the
+encryption approach to use.</dd>
+      <dt>object</dt>
+      <dd>(for <code>encrypt_object</code>) an arbitrary R object to
+encrypt.  It will be serialised to raw first (see
+<code><a href='http://www.inside-r.org/r-doc/base/serialize'>serialize</a></code>).</dd>
+      <dt>string</dt>
+      <dd>(for <code>encrypt_string</code>) a scalar character
+vector to encrypt.  It will be converted to raw first with
+<code><a href='http://www.inside-r.org/r-doc/base/rawConversion'>charToRaw</a></code>.</dd>
+      <dt>path</dt>
+      <dd>(for <code>encrypt_file</code>) the name of a file to
+encrypt.  It will first be read into R as binary (see
+<code><a href='http://www.inside-r.org/r-doc/base/readBin'>readBin</a></code>).</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Encrypt and decrypt raw data, objects, strings and files.  The
+core functions here are <code>encrypt_data</code> and
+<code>decrypt_data</code> which take raw data and decrypt it, writing
+either to file or returning a raw vector.  The other functions
+encrypt and decrypt arbitrary R objects (<code>encrypt_object</code>,
+<code>decrypt_object</code>), strings (<code>encrypt_string</code>,
+<code>decrypt_string</code>) and files (<code>encrypt_file</code>,
+<code>decrypt_file</code>).</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>key &lt;- sodium::keygen()
+cfg &lt;- config_sodium_symmetric(key)
+# Some super secret data we want to encrypt:
+x &lt;- runif(10)
+# Convert the data into a raw vector:
+data &lt;- serialize(x, NULL)
+data
+</div>
+<div class='output'>  [1] 58 0a 00 00 00 02 00 03 02 03 00 02 03 00 00 00 00 0e 00 00 00 0a 3f dc 6f
+ [26] aa 56 00 00 00 3f b7 c6 43 3d 00 00 00 3f b0 fc 0c 57 00 00 00 3f eb fd b9
+ [51] f7 80 00 00 3f e2 6b 9e c3 80 00 00 3f b0 71 9d 00 00 00 00 3f c1 fc 5f fb
+ [76] 80 00 00 3f dc e5 61 96 80 00 00 3f d7 4c 54 29 80 00 00 3f dc fd 5b 01 40
+[101] 00 00
+</div>
+<div class='input'># Encrypt the data; without the key above we will never be able to
+# decrypt this.
+data_enc &lt;- encrypt_data(data, NULL, cfg)
+data_enc
+</div>
+<div class='output'>  [1] 00 18 49 ac c9 86 bd 0a cb 77 3f cd a8 ee 07 ce 41 f9 c3 4a 8c bd 3a 4a cf
+ [26] 20 69 79 b0 dd cc a5 02 4f f3 10 80 8c 1c 20 9d 7d d7 d5 7e f2 0f d5 de 90
+ [51] fb ef 00 db ea be 45 9a d0 23 cd fb dc a3 7f 81 d0 11 e6 c6 26 15 77 cd 5f
+ [76] 5f f8 06 50 ce dd 29 21 38 1b 1d d8 d9 51 be 39 d8 4f dc 43 44 93 cb 50 f2
+[101] f2 d5 47 79 6c fd e0 00 4f c8 c7 a7 e5 82 91 2d 73 f2 16 47 8c a9 6b c3 26
+[126] 67 ce c2 96 eb eb e7 c4 15 aa 56 92 37 88 d4 cb 22 a6 23
+</div>
+<div class='input'># Our random numbers:
+unserialize(decrypt_data(data_enc, NULL, cfg))
+</div>
+<div class='output'> [1] 0.44431551 0.09286900 0.06634595 0.87472246 0.57563723 0.06423360
+ [7] 0.14051437 0.45150032 0.36403374 0.45296359
+</div>
+<div class='input'># Same as the never-encrypted version:
+x
+</div>
+<div class='output'> [1] 0.44431551 0.09286900 0.06634595 0.87472246 0.57563723 0.06423360
+ [7] 0.14051437 0.45150032 0.36403374 0.45296359
+</div>
+<div class='input'>
+# This can be achieved more easily using `encrypt_object`:
+data_enc &lt;- encrypt_object(x, NULL, cfg)
+identical(decrypt_object(data_enc, cfg), x)
+</div>
+<div class='output'>[1] TRUE
+</div>
+<div class='input'>
+# Encrypt strings easily:
+str_enc &lt;- encrypt_string(&quot;secret message&quot;, NULL, cfg)
+str_enc
+</div>
+<div class='output'> [1] 00 18 39 e0 ce 4a 66 1f f1 52 41 a2 87 d8 a2 ac 84 9b 35 de c9 77 b5 3e 97
+[26] 7c cf 08 d6 2b e3 6a 52 5b ec c3 d3 15 0c c2 74 3b 81 6f 32 03 83 26 d3 37
+[51] aa 1d b9 30 a0 b7
+</div>
+<div class='input'>decrypt_string(str_enc, cfg)
+</div>
+<div class='output'>[1] &quot;secret message&quot;
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>decrypt_data</li><li>decrypt_file</li><li>decrypt_object</li><li>decrypt_string</li><li>encrypt_data</li><li>encrypt_file</li><li>encrypt_object</li><li>encrypt_string</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

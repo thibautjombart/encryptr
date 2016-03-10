@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>config_sodium_symmetric. encryptr 0.0.3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">encryptr 0.0.3</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Encryption configuration</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>config_sodium_symmetric(path_key)</div>
+<div>config_sodium_public(path_pub, path_key)</div>
+<div>config_sodium_authenticated(path_pub, path_key)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>path_key</dt>
+      <dd>Path to, or contents of, the symmetric key
+(<code>config_sodium_symmetric</code>) or your personal private key
+(<code>config_sodium_public</code>,
+<code>config_sodium_authenticated</code>).  For
+<code>config_sodium_public</code>, this may be <code>NULL</code> in which
+case only encryption can be carried out.</dd>
+      <dt>path_pub</dt>
+      <dd>Path to, or contents of, the public key; your
+personal public key (<code>config_sodium_public</code>) or the other
+party's key (<code>config_sodium_authenticated</code>).</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Load sodium keys for use with <code>encrypt</code>/<code>decrypt</code>.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>Note that the interface here is quite different to that for
+<code><a href='config_openssl.html'>config_openssl</a></code> which loads ssh keys; here we expect
+keys to be provided as raw data, or as links to binary files that
+contain that raw data.  In contrast for openssl we use standard
+key formats.</p>
+  
+    </div>
+      </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>config_sodium_authenticated</li><li>config_sodium_public</li><li>config_sodium_symmetric</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

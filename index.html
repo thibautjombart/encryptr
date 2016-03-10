@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>Index. encryptr 0.0.3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Rich FitzJohn">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">encryptr 0.0.3</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <div class="row">
+  <div class="span8">
+    <h1>encryptr</h1>
+
+<blockquote>
+<p>Enryption Wrappers</p>
+</blockquote>
+
+<p><a href="https://travis-ci.org/dide-tools/encryptr"><img src="https://travis-ci.org/dide-tools/encryptr.svg?branch=master" alt="Linux Build Status"/></a>
+<a href="https://ci.appveyor.com/project/dide-tools/encryptr"><img src="https://ci.appveyor.com/api/projects/status/github/dide-tools/encryptr?svg=true" alt="Windows Build status"/></a></p>
+
+<p>Encryption wrappers, using low-level support from <a href="https://github.com/jeroenooms/sodium"><code>sodium</code></a> and <a href="https://github.com/jeroenooms/openssl"><code>openssl</code></a>.  This package is designed to be extremely easy to use, rather than the most secure thing (you&#39;re using R, remember).</p>
+
+<p>It provides high level functions to:</p>
+
+<ul>
+<li>Encrypt and decrypt files (creating a new file) (<code>encrypt_file</code>, <code>decrypt_file</code>)</li>
+<li>Wrappers (<code>encrypt</code> and <code>decrypt</code>) around R&#39;s file reading and writing functions that enable transparent encryption (support included for <code>readRDS</code>/<code>writeRDS</code>, <code>read.csv</code>/<code>write.csv</code>, etc).</li>
+</ul>
+
+<p>The package aims to make encrypting and decrypting data as easy as</p>
+
+<pre><code class="r">encrypt(save.csv(dat, &quot;file.csv&quot;), key)
+</code></pre>
+
+<p>and</p>
+
+<pre><code class="r">dat &lt;- decrypt(read.csv(&quot;file.csv&quot;, stringsAsFactors=FALSE), key)
+</code></pre>
+
+<p>In addition, the package implements a workflow that allows a group to securely share data by encrypting it with a shared (&ldquo;symmetric&rdquo;) key that is in turn encrypted with each users ssh keys.  The use case is a group of researchers who are collaborating on a dataset that cannot be made public, for example containing sensitive data.  However, they have decided or need to store it in a setting that they are not 100% confident about the security of the data.  So encrypt the data at each read/write.</p>
+
+<h2>Objects to handle keys:</h2>
+
+<p>Decide on a style of encryption and create a <code>encryptr_config</code> object</p>
+
+<ul>
+<li><code>config_symmetric</code>: <a href="http://127.0.0.1:19184/library/sodium/doc/intro.html#secret-key-encryption">Symmetric encryption, using sodium</a> &ndash; everyone shares the same key (which must be kept secret!) and can encrypt and decrpt data with it.  This is used as a building block but is inflexible because of the need to keep the key secret.</li>
+<li><code>config_public</code>: <a href="http://127.0.0.1:19184/library/sodium/doc/intro.html#public-key-encryption">Public key encryption</a> &ndash; this lets people encrypt messages using your public key that only you can read using your private key.</li>
+<li><code>config_authenticated</code>: <a href="http://127.0.0.1:19184/library/sodium/doc/intro.html#public-key-authenticated-encryption">Public key authenticated encryption, using sodium</a> &ndash; this is used for secure messaging and combines two people&#39;s public keys and uses a combination of public and private keys to communicate.</li>
+<li><code>config_openssl</code>: Public key authenticaed encryption, using <a href="https://cran.r-project.org/web/packages/openssl">openssl</a> (see <code>?encrypt_envelope</code> in the the <code>openssl</code> package.</li>
+</ul>
+
+<p>To generate keys, you really should read the underling documentation in the <code>sodium</code> or <code>openssl</code> packages!  The <code>sodium</code> keys do not have a file format: they are simply random data.  So a secret symmetric key in <code>sodium</code> might be:</p>
+
+<pre><code class="r">key &lt;- sodium::keygen()
+key
+</code></pre>
+
+<pre><code>##  [1] 0a cf 92 0a 72 9e eb 92 0f ff a2 f0 06 2c 4d 4f 66 e9 ad ff 2c bd f1
+## [24] a0 7a 0a 9b bc c2 da 35 f4
+</code></pre>
+
+<p>With this key we can create the <code>encryptr_config</code> object:</p>
+
+<pre><code class="r">cfg &lt;- encryptr::config_symmetric(key)
+</code></pre>
+
+<p>If the key was saved to file that would work too:</p>
+
+<pre><code class="r">path &lt;- tempfile()
+writeBin(key, path)
+cfg &lt;- encryptr::config_symmetric(path)
+</code></pre>
+
+<p>If you load a password protected ssh key you will be prompted for your passphrase.  <code>encryptr</code> will ensure that this is not echoed onto the console.</p>
+
+<pre><code class="r">cfg &lt;- config_openssl()
+## Please enter private key passphrase:
+</code></pre>
+
+<h2>Encrypt / decrypt a file</h2>
+
+<p>If you have files that already exist and you want to encrypt or decrypt, the functions <code>encrypt_file</code> and <code>decrypt_file</code> will do that (these are workhorse functions that are used internally throughout the package)</p>
+
+<pre><code class="r">saveRDS(iris, &quot;myfile&quot;)
+encrypt_file(&quot;myfile&quot;, &quot;myfile.encrypted&quot;, cfg)
+</code></pre>
+
+<p>The file is encrypted now:</p>
+
+<pre><code class="r">readRDS(&quot;myfile.encrypted&quot;)
+</code></pre>
+
+<pre><code>## Error in readRDS(&quot;myfile.encrypted&quot;): unknown input format
+</code></pre>
+
+<p>Decrypt the file and read it:</p>
+
+<pre><code class="r">decrypt_file(&quot;myfile.encrypted&quot;, &quot;myfile.clear&quot;, cfg)
+identical(readRDS(&quot;myfile.clear&quot;), iris)
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<h2>Wrappers around R&#39;s file functions</h2>
+
+<p>While encrypting files is nice, the aim of the package is</p>
+
+<p>To encrypt the output of a file producing command, wrap it in <code>encrypt</code></p>
+
+<pre><code class="r">encrypt(saveRDS(iris, &quot;myfile.rds&quot;), cfg)
+</code></pre>
+
+<p>To decrypt the a file to feed into a file consuming command, wrap it in <code>decrypt</code>:</p>
+
+<pre><code class="r">dat &lt;- decrypt(readRDS(&quot;myfile.rds&quot;), cfg)
+</code></pre>
+
+<p>The roundtrip preserves the data:</p>
+
+<pre><code class="r">identical(dat, iris) # yay
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<p>But without the key, it cannot be read:</p>
+
+<p>&ldquo;{r, error=TRUE)
+readRDS(&quot;myfile.rds&rdquo;) # unknown format</p>
+
+<pre><code>
+
+
+The above commands work through computing on the language, rewriting the `readRDS` and `saveRDS` commands.  Commands for reading and writing tabular and plain text files (`read.csv`, `readLines`, etc) are also supported, and the way the rewriting is done is designed to be extensible.
+
+With (probably) some limitations, the argument to the wrapped functions can be connection objects.  In this case the *actual* command is written to a file and the contents of that file are encrypted and written to the connection.  When reading/writing multiple objects from/to a single connection though, this is likely to go very badly.
+
+Because `encrypt` and `decrypt` compute on the language, standard evaluation forms `encrypt_` and `decrypt_` are provided that take a quoted expression as their first argument.
+
+### Supporting additional functions
+
+The functions supported so far are:
+
+* `readLines` / `writeLines`
+* `readRDS` / `writeRDS`
+* `read` / `save`
+* `read.table` / `write.table`
+* `read.csv` / `read.csv2` / `write.csv`
+* `read.delim` / `read.delim2`
+
+However, there are bound to be more functions that could be useful to add here (e.g., `readxl::read_excel`).  Either pass the name of the file argument to `encrypt` / `decrypt` as
+
+```r
+decrypt(readxl::read_excel(&quot;myfile.xlsx&quot;), key, file_arg=&quot;path&quot;)
+</code></pre>
+
+<p>or <em>register</em> the function with the package using <code>rewrite_register</code>:</p>
+
+<pre><code class="r">encryptr::rewrite_register(&quot;readxl&quot;, &quot;read_excel&quot;, &quot;path&quot;)
+</code></pre>
+
+<p>Then you can use</p>
+
+<pre><code class="r">decrypt(readxl::read_excel(&quot;myfile.xlsx&quot;), key)
+</code></pre>
+
+<p>to decrypt the file.</p>
+
+<h2>Workflow support</h2>
+
+<p>It&#39;s possible that this means there are two packages here, but I have a single use case so they&#39;re together for now at least.  The package contains support for a group of people are working on a sensitive data set.  The data will be stored with a symmetric key.  However, we never actually store the key directly, instead we&#39;ll store a copy that is encrypted with the user key.  Any user with access to the data can authorise another user to access the data.  This is described in more detail in the <a href="http://dide-tools.github.io/encryptr/vignettes/data.html">vignette</a> (in R: <code>vignette(&quot;data&quot;, package=&quot;encryptr&quot;)</code>).</p>
+
+<h2>Why not a connection object?</h2>
+
+<p>A proper connection could be nice but there are two issues stopping this:</p>
+
+<ol>
+<li><code>sodium</code> does not support streaming encryption/decrption.  It might be possible (bindings to node and swift have it).  In general this would be great and allow the sort of cool things you can do with streaming large data in curl.</li>
+<li>R plays pretty loose and free with creating connections when given a filename; <code>readRDS</code>/<code>saveRDS</code> will open files with decompression on in binary mode, <code>read.csv</code>/<code>write.csv</code> don&#39;t.  <code>write.table</code> adds encoding information when openning the connection object.  The logic around what happens is entirely within the functions themselves so is hard to capture in a general way.</li>
+<li>Connection objects look like a pain to write.</li>
+</ol>
+
+<p>There are still problems with the approach I&#39;ve taken:</p>
+
+<ul>
+<li>Appending does not work: we&#39;d need to unencrypt the file first for that to be OK.  This is an issue for <code>write.table</code>, but not <code>writeLines</code>.</li>
+<li>Non-file arguments are going to suck (though it&#39;s possible that something could be done to detect connections)</li>
+</ul>
+
+<p>In the end, you can always write things out however you like and use <code>encrypt_file</code> to encrypt the file afterwards.</p>
+
+<h2>Why are wrappers needed?</h2>
+
+<p>The low level functions in <code>sodium</code> and <code>openssl</code> work with raw data, for generality.  Few users encounter raw vectors in their typical use of R, so these require serialisation.  Most of the encryption involves a little extra random data (the &ldquo;nonce&rdquo; in <code>sodium</code> and similar additional pieces with <code>openssl</code>).  These need storing with the data, and then separating from the dadta when decryption happens.</p>
+
+
+    <h2>Help topics</h2>
+
+    <h3></h3>
+    
+    
+    <ul class="index">
+        
+      <li>
+        <code><a href="config_openssl.html">config_openssl</a></code><br />Load openssl keys</li>
+            
+      <li>
+        <code><a href="encryptr_config.html">config_sodium_symmetric</a></code>(config_sodium_authenticated, config_sodium_public)<br />Encryption configuration</li>
+            
+      <li>
+        <code><a href="data_admin.html">data_admin_init</a></code>(data_admin_authorise, data_admin_list_keys, data_admin_list_requests)<br />Encrypted data administration</li>
+            
+      <li>
+        <code><a href="data_user.html">data_request_access</a></code>(config_data)<br />User commands</li>
+            
+      <li>
+        <code><a href="encrypt.html">encrypt</a></code>(decrypt, decrypt_, encrypt_)<br />Easy encryption and decryption</li>
+            
+      <li>
+        <code><a href="encrypt_data.html">encrypt_data</a></code>(decrypt_data, decrypt_file, decrypt_object, decrypt_string, encrypt_file, encrypt_object, encrypt_string)<br />Encrypt and decrypt data and other things</li>
+            
+      <li>
+        <code><a href="rewrite_register.html">rewrite_register</a></code><br />Register functions to work with encrypt/decrypt</li>
+            
+      <li>
+        <code><a href="ssh_keygen.html">ssh_keygen</a></code><br />Wrapper around ssh-keygen</li>
+    
+    </ul>
+  </div>
+  
+  <div class="span3 offset1">
+    <h2>Vignettes</h2>
+    <ul>
+      <li><a href="vignettes/data.html">Data Encryption</a></li>
+      <li><a href="vignettes/encryptr.html">Introduction</a></li>
+    </ul>
+        
+    <h2>Dependencies</h2>
+    <ul>
+      
+      <li><strong>Imports</strong>: getPass, openssl, sodium</li>
+      <li><strong>Suggests</strong>: knitr, testthat</li>
+      
+    </ul>
+    <h2>Authors</h2>
+    <ul>
+    </ul>
+
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>config_openssl. encryptr 0.0.3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">encryptr 0.0.3</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Load openssl keys</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>config_openssl(public&nbsp;=&nbsp;NULL, private&nbsp;=&nbsp;TRUE, envelope&nbsp;=&nbsp;TRUE)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>public</dt>
+      <dd>The path to the pulblic key.  If <code>NULL</code>, we first
+check the R option <code>encryptr.user.path</code> and if that is
+unset check the environment variable <code>USER_PUBKEY</code>, and if
+that is unset default to <code>~/.ssh/id_rsa.pub</code>.  If any of
+these are directories, we look for a file <code>id_rsa.pub</code>
+within that directory.  If the file does not exist it will raise
+an error.</dd>
+      <dt>private</dt>
+      <dd>One of (1) A logical <code>FALSE</code> indicating that a
+private ey should not be loaded, (2) A logical <code>TRUE</code>
+indicating that the location of the private key should be
+determined from the location of the public key, (3) <code>NULL</code>
+to infer the location of the private key from the
+<code>encryptr.user.path</code> R variable and <code>USER_KEY</code>
+environment variable (in a similar way to <code>public</code> above).
+Because keypairs are often password protected, and because
+public keys are useful on their own, often it will not be needed
+to unlock and load the private key.</dd>
+      <dt>envelope</dt>
+      <dd>A logical scalar indicating if the "envelope"
+functions should be used.  If <code>TRUE</code>, then this is used for
+messaging (via <code><a href='http://www.inside-r.org/packages/cran/openssl/docs/encrypt_envelope'>encrypt_envelope</a></code>).  This is what
+you would use to communicate with a third party using shared
+public keys and non- private keys.  If <code>FALSE</code>, then
+<code><a href='http://www.inside-r.org/packages/cran/openssl/docs/rsa_encrypt'>rsa_encrypt</a></code> is used.  This is less useful because
+it can only encrypt messages smaller than the size of the key.</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Load an openssl key pair for use with <code><a href='encrypt.html'>encrypt</a></code> /
+<code><a href='encrypt.html'>decrypt</a></code>.  This is for use with <em>asymmetric
+public key encryption</em> (see <code>vignette("encryptr")</code> and the
+<code>openssl</code> package documentation for more details).  As such
+there are a couple of different ways of loading the keys.</p>
+  
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>The default will load your own public and private key which is
+useful for decrypting message sent to you.  If you want to send
+someone else a message you will need to load <em>their</em> public
+key, in which case you would use</p>
+  
+      <p><pre>encryptr::config_openssl(path_pub, FALSE)</pre></p>
+  
+      <p>The <code>FALSE</code> prevents loading a private key (as you do not
+have the private key associated with that public key.</p>
+  
+      <p>This function is designed in a different way to the similar sodium
+functions (e.g., <code><a href='encryptr_config.html'>config_sodium_symmetric</a></code>) as here we
+assume that keys are specified as the path to files as there are
+standard formats for these.  There are many different places that
+keys may be (especially when loading someone else's public keys)
+so the logic here is a little convoluted.</p>
+  
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'>## Not run: 
+# cfg &lt;- config_openssl(private=FALSE)
+# secret &lt;- encrypt_string(&quot;hello&quot;, NULL, cfg)
+# decrypt_string(secret, cfg)
+# ## End(Not run)
+</div></pre>
+  </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>config_openssl</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
